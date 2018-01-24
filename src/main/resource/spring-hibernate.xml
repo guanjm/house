@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="
@@ -12,8 +12,8 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<!-- 加载资源文件 -->
-	<context:property-placeholder location="classpath:jdbc.properties"/>
-	
+	<context:property-placeholder location="classpath:jdbc.properties" />
+
 	<!-- c3p0 连接池配置 -->
 	<bean id="c3p0DataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
 		<property name="driverClass" value="${jdbc.driver.driverClassName}" />
@@ -37,7 +37,7 @@
 		<!-- 每次都验证连接是否可用 -->
 		<property name="testConnectionOnCheckout" value="${c3p0.testConnectionOnCheckout}" />
 	</bean>
-	
+
 	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<property name="dataSource" ref="c3p0DataSource" />
 		<!-- @Table 注解方式：使用packagesToScan 属性扫描包路径下的实体获取数据表配置 -->
@@ -56,13 +56,13 @@
 			</props>
 		</property>
 	</bean>
-	
+
 	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	
+
 	<!--采用@Transactional注解方式使用事务 -->
 	<tx:annotation-driven />
-	
+
 </beans>
         

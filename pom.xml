@@ -1,6 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	
+
 	<!-- 模型版本，maven2.0必须是这样写，现在是maven2唯一支持的版本 -->
 	<modelVersion>4.0.0</modelVersion>
 	<!-- 公司或者组织的唯一标志，并且配置时生成的路径也是由此生成 -->
@@ -13,16 +13,17 @@
 	<packaging>war</packaging>
 	<!-- 用户描述项目的名称，可选 -->
 	<name>house</name>
-	
+
 	<!-- 为pom定义一些常量，在pom中的其它地方可以直接引用 使用方式 如下 ：${file.encoding} -->
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.version>4.3.11.RELEASE</spring.version>
+		<spring.version>4.3.14.RELEASE </spring.version>
 		<hibernate.version>4.3.11.Final</hibernate.version>
 		<jstl.version>1.2</jstl.version>
-		<jackson.version>2.9.0.pr2</jackson.version>
+		<jackson.version>2.9.0</jackson.version>
+		<quartz.version>2.2.1</quartz.version>
 	</properties>
-	
+
 	<!-- 只表明依赖项版本的优先选择，并不影响项目的依赖项 -->
 	<dependencyManagement>
 		<dependencies>
@@ -35,7 +36,7 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-	
+
 	<dependencies>
 		<!-- spring 4.x -->
 		<dependency>
@@ -68,6 +69,10 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
 		</dependency>
 		<dependency>
@@ -95,30 +100,30 @@
 			<artifactId>spring-test</artifactId>
 		</dependency>
 		<dependency>
-	        <groupId>org.springframework</groupId>
-	        <artifactId>spring-aspects</artifactId>
-	    </dependency>
-	    
-	    <dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+		</dependency>
+
+		<dependency>
 			<groupId>taglibs</groupId>
 			<artifactId>standard</artifactId>
 			<version>1.1.2</version>
 			<type>jar</type>
 		</dependency>
-	    
-	    <dependency>
+
+		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 			<version>${jstl.version}</version>
 			<type>jar</type>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>dom4j</groupId>
 			<artifactId>dom4j</artifactId>
 			<version>1.6.1</version>
 		</dependency>
-		
+
 		<!-- hibernate -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -132,16 +137,16 @@
 			<artifactId>c3p0</artifactId>
 			<version>0.9.5.2</version>
 		</dependency>
-		
-        <dependency>   
-	        <groupId>com.oracle</groupId>    
-	        <artifactId>ojdbc14</artifactId>    
-	        <version>10.2.0.4.0</version>
-	        <scope>system</scope>
+
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc14</artifactId>
+			<version>10.2.0.4.0</version>
+			<scope>system</scope>
 			<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/ojdbc14-10.2.0.4.0.jar</systemPath>
-	    </dependency>
-        
-        <!-- 日志 -->
+		</dependency>
+
+		<!-- 日志 -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>jcl-over-slf4j</artifactId>
@@ -157,42 +162,48 @@
 			<artifactId>log4j</artifactId>
 			<version>1.2.17</version>
 		</dependency>
-		
+
 		<!-- json -->
 		<dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>  
-            <artifactId>jackson-databind</artifactId>  
-            <version>${jackson.version}</version>  
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>  
-            <artifactId>jackson-core</artifactId>  
-            <version>${jackson.version}</version>  
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>  
-            <artifactId>jackson-annotations</artifactId>  
-            <version>${jackson.version}</version>  
-        </dependency>
-        
-        <!-- upload -->
-        <dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+
+		<!-- upload -->
+		<dependency>
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
 			<version>1.3.2</version>
 		</dependency>
-		
+
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz</artifactId>
+			<version>${quartz.version}</version>
+		</dependency>
+
 	</dependencies>
-	
+
 	<build>
 		<!-- 产生的构件的文件名，默认值是${artifactId}-${version}。 -->
 		<finalName>house</finalName>
 		<!-- 构建产生的所有文件存放的目录,默认为${basedir}/target，即项目根目录下的target -->
 		<directory>${basedir}/target</directory>
-		
+
 		<!-- findbugs插件 -->
 		<plugins>
-			
+
 			<!-- 编译插件版本和jvm版本 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -210,19 +221,19 @@
 					</compilerArguments>
 				</configuration>
 			</plugin>
-			
-			<plugin> 
-				<groupId>org.codehaus.mojo</groupId> 
-				<artifactId>findbugs-maven-plugin</artifactId> 
-				<version>3.0.1</version> 
-				<!--此处还可以配置一些其他东西，比如输出格式是xml还是html,默认xml，具体可参考网上的详细配置-->
-				<configuration> 
-					<!--findbugs需要忽略的类型的xml-->
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>findbugs-maven-plugin</artifactId>
+				<version>3.0.1</version>
+				<!--此处还可以配置一些其他东西，比如输出格式是xml还是html,默认xml，具体可参考网上的详细配置 -->
+				<configuration>
+					<!--findbugs需要忽略的类型的xml -->
 					<excludeFilterFile>findbugs-exclude.xml</excludeFilterFile>
-				</configuration> 
+				</configuration>
 			</plugin>
-			
+
 		</plugins>
 	</build>
-	
+
 </project>

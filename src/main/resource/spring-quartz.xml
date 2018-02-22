@@ -9,8 +9,8 @@
 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="triggers">
 			<list>
-				<!-- <ref bean="simpleTrigger" />
-				<ref bean="cronTrigger" /> -->
+				<ref bean="simpleTrigger" />
+				<ref bean="cronTrigger" />
 			</list>
 		</property>
 	</bean>
@@ -35,6 +35,6 @@
 		<property name="concurrent" value="false" /><!-- 是否支持并发 -->
 	</bean>
 	<!-- 测试用例 -->
-	<bean id="testQuartzJobBean" class="gjm.house.quartz.TestQuartzJobBean" />
+	<bean id="testQuartzJobBean" class="gjm.house.demo.quartz.TestQuartzJobBean" />
 
 </beans>

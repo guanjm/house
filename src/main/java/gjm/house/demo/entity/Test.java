@@ -1,4 +1,4 @@
-package gjm.house.entity;
+package gjm.house.demo.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

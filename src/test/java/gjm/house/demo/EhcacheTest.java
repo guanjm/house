@@ -8,6 +8,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import gjm.house.common.util.EhcacheUtil;
+import gjm.house.common.util.EhcacheUtil.CacheName;
 import gjm.house.demo.dao.ITestDao;
 import gjm.house.demo.entity.TbTest;
 
@@ -77,7 +78,7 @@ public class EhcacheTest {
 	
 	@Test
 	public void utilTest() throws InterruptedException {
-		String cacheName = "tenSecond";
+		String cacheName = CacheName.tenSecond.name();
 		String key = "key";
 		String value = "value";
 		/*测试失效时间*/
@@ -117,7 +118,7 @@ public class EhcacheTest {
 	
 	@Test
 	public void mixTest() {
-		String cacheName = "tenSecond";
+		String cacheName = CacheName.tenSecond.name();
 		String key = "TbTest_tenSecond1";
 		TbTest test;
 		/*缓存数据*/

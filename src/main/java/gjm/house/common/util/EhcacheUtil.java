@@ -17,6 +17,10 @@ import net.sf.ehcache.Element;
  */
 public class EhcacheUtil {
 	
+	public enum CacheName{
+		tenSecond;	//10秒缓存
+	}
+	
 	private static CacheManager cacheManager = CacheManager.getInstance();
 	
 	/**

@@ -14,14 +14,14 @@ import gjm.house.demo.entity.TbTest;
 public class TestDaoImpl extends GenericDaoImpl<TbTest> implements ITestDao {
 
 	@Transactional
-	@Cacheable(value = "tenSecond", key = "#id")
+	@Cacheable(value = "tenSecond", key = "'TbTest_' + caches[0].name + #id")
 	public TbTest Cacheable(Integer id) {
 		System.out.println("--------get from db--------");
 		return this.get(id);
 	}
 	
 	@Transactional
-	@CachePut(value = "tenSecond", key = "#test.id")
+	@CachePut(value = "tenSecond", key = "'TbTest_' + caches[0].name + #test.id")
 	public TbTest CachePut(TbTest test) {
 		System.out.println("--------CachePut--------");
 		this.update(test);
@@ -29,7 +29,7 @@ public class TestDaoImpl extends GenericDaoImpl<TbTest> implements ITestDao {
 	}
 	
 	@Transactional
-	@CacheEvict(value = "tenSecond", key = "#test.id")
+	@CacheEvict(value = "tenSecond", key = "'TbTest_' + caches[0].name + #test.id")
 	public TbTest CacheEvict(TbTest test) {
 		System.out.println("--------CacheEvict--------");
 		this.update(test);

@@ -15,9 +15,9 @@ public class BasicDaoImpl extends HibernateDaoSupport implements IBasicDao {
 		setSessionFactory(sessionFactory);
 	}
 
-	@SuppressWarnings("unchecked")
 	public <T> T save(T entity) {
-		return (T) this.getHibernateTemplate().save(entity);
+		this.getHibernateTemplate().save(entity);
+		return entity;
 	}
 
 	public <T> void delete(T entity) {

@@ -13,7 +13,7 @@ import gjm.house.demo.dao.ITestDao;
 import gjm.house.demo.entity.TbTest;
 
 /**
- * 缓存测试用例
+ * ehcache测试用例
  * @author Tim
  *
  */

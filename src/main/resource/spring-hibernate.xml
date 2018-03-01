@@ -11,9 +11,6 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<!-- 加载资源文件 -->
-	<context:property-placeholder location="classpath:jdbc.properties" />
-
 	<!-- c3p0 连接池配置 -->
 	<bean id="c3p0DataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
 		<property name="driverClass" value="${jdbc.driver.driverClassName}" />

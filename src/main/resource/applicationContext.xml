@@ -15,11 +15,16 @@
 		<context:exclude-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
+	
+	<!-- 加载资源文件 -->
+	<context:property-placeholder location="classpath:jdbc.properties, classpath:redis.properties" />
 
 	<!-- 引入hibernate的配置 -->
 	<import resource="spring-hibernate.xml" />
 	<!-- 引入ehcache缓存 -->
 	<import resource="spring-ehcache.xml" />
+	<!-- 引入redis缓存 -->
+	<import resource="spring-redis.xml" />
 	<!-- 引入定时任务 -->
 	<import resource="spring-quartz.xml" />
 

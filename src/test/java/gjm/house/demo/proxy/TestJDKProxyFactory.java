@@ -4,10 +4,6 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
-import gjm.house.demo.dao.ITestDao;
-import gjm.house.demo.dao.impl.TestDaoImpl;
-import gjm.house.demo.entity.TbTest;
-
 /**
  * JDK代理
  * 目标对象需要实现接口

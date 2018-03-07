@@ -3,9 +3,6 @@ package gjm.house.common.aspect;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.annotation.PostConstruct;
-import javax.servlet.http.HttpServletRequest;
-
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.AfterThrowing;
@@ -43,6 +40,7 @@ public class ExceptionLogAspect {
 	 * @author guanjm
 	 * @param e
 	 */
+	@SuppressWarnings("rawtypes")
 	@AfterThrowing(pointcut = "ExceptionAspect()" ,throwing = "e")
 	public void afterThrowing(JoinPoint joinPoint, Throwable e) {
 		//异常时间

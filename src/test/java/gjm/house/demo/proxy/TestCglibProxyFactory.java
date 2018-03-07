@@ -6,9 +6,6 @@ import org.springframework.cglib.proxy.Enhancer;
 import org.springframework.cglib.proxy.MethodInterceptor;
 import org.springframework.cglib.proxy.MethodProxy;
 
-import gjm.house.demo.dao.impl.TestDaoImpl;
-import gjm.house.demo.entity.TbTest;
-
 /**
  * Cglib代理（子类代理）
  * 目标对象不需要实现接口，不能为final

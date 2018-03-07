@@ -1,10 +1,5 @@
 package gjm.house.test;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
-
 import javax.annotation.Resource;
 
 import org.junit.Test;
@@ -12,9 +7,7 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import gjm.house.common.util.BytesUtil;
 import gjm.house.common.util.RedisUtil;
-import redis.clients.jedis.Jedis;
 
 /**
  * redis测试用例

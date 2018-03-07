@@ -1,4 +1,4 @@
-package gjm.house.demo;
+package gjm.house.test;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,7 +29,7 @@ public class RedisTest {
 	private RedisUtil redisUtil;
 	
 	@Test
-	public void test() throws InterruptedException {
+	public void test() {
 		
 	}
 

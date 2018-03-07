@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * 字节化工具
- * @author Tim
+ * @author guanjm
  *
  */
 public class BytesUtil {
@@ -40,7 +40,7 @@ public class BytesUtil {
 				}
 			}
 		} catch (Exception e) {
-			logger.error(" BytesUtil turnByteArray error:{} param:{}", e, object);
+			logger.error(" BytesUtil turnByteArray param:{} error: ", object, e);
 		}
 		return result;
 	}
@@ -69,7 +69,7 @@ public class BytesUtil {
 				}
 			}
 		} catch (Exception e) {
-			logger.error(" BytesUtil turnObject error:{} param:{}", e.getStackTrace(), byteArray);
+			logger.error(" BytesUtil turnObject param:{} error: ", byteArray, e);
 		}
 		return result;
 	}
@@ -91,7 +91,7 @@ public class BytesUtil {
 			}
 			return result;
 		} catch (Exception e) {
-			logger.error(" BytesUtil turn2DByteArray error:{} params:{}", e, object);
+			logger.error(" BytesUtil turn2DByteArray params:{} error: ", object, e);
 		}
 		return null;
 	}

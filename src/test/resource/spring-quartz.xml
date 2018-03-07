@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 配置调度工厂 -->
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="simpleTrigger" />
+				<ref bean="cronTrigger" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- 每隔指定时间则触发一次 -->
+	<bean id="simpleTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+		<property name="jobDetail" ref="testJobDetail" />
+		<property name="startDelay" value="0" /><!-- 调度工厂实例化后，经过0秒开始执行调度 -->
+		<property name="repeatInterval" value="120000" /><!-- 每2分钟调度一次 -->
+	</bean>
+
+	<!-- 每到指定时间则触发一次 -->
+	<bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="testJobDetail" />
+		<property name="cronExpression" value="0 0 12 * * ?" /><!-- 每天12:00运行一次 -->
+	</bean>
+
+	<bean id="testJobDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="testQuartzJobBean" />
+		<property name="targetMethod" value="execute" />
+		<property name="concurrent" value="false" /><!-- 是否支持并发 -->
+	</bean>
+	<!-- 测试用例 -->
+	<bean id="testQuartzJobBean" class="gjm.house.demo.quartz.TestQuartzJobBean" />
+
+</beans>

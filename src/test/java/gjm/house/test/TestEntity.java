@@ -1,4 +1,4 @@
-package gjm.house.demo;
+package gjm.house.test;
 
 import javax.annotation.Resource;
 
@@ -34,7 +34,8 @@ public class TestEntity {
 	public void testDao() {
 		System.out.println("--------------testDao_start------------");
 		TbTest test = new TbTest();
-		testDao.save(test);
+		test.setId(1);
+		testDao.delete(test);
 		System.out.println("---------------testDao_end------------");
 	}
 	

@@ -6,6 +6,7 @@ import java.lang.reflect.Proxy;
 
 import gjm.house.demo.dao.ITestDao;
 import gjm.house.demo.dao.impl.TestDaoImpl;
+import gjm.house.demo.entity.TbTest;
 
 /**
  * JDK代理
@@ -53,11 +54,11 @@ public class TestJDKProxyFactory {
 	 */
 	public static void main(String[] args) {
 		//目标对象
-		ITestDao testDao = new TestDaoImpl();
+		TestJDKInterface target = new TestJDKImpl();
 		//创建代理对象
-		ITestDao proxy = (ITestDao) new TestJDKProxyFactory().getProxyInstance(testDao);
+		TestJDKInterface proxy = (TestJDKInterface) new TestJDKProxyFactory().getProxyInstance(target);
 		//执行方法
-		proxy.save(null);
+		proxy.run();
 	}
 
 }

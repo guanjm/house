@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- c3p0 连接池配置 -->
+	<bean id="c3p0DataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="${jdbc.driver.driverClassName}" />
+		<property name="jdbcUrl" value="${jdbc.url}" />
+		<property name="user" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<!-- 初始化连接 -->
+		<property name="initialPoolSize" value="${c3p0.initialPoolSize}" />
+		<!-- 最小连接数 -->
+		<property name="minPoolSize" value="${c3p0.minPoolSize}" />
+		<!-- 最大连接数 -->
+		<property name="maxPoolSize" value="${c3p0.maxPoolSize}" />
+		<!-- 获得连接的超时时间,如果超过这个时间,会抛出异常，单位秒 -->
+		<property name="maxIdleTime" value="${c3p0.maxIdleTime}" />
+		<!-- 最大的PreparedStatement的数量 -->
+		<property name="maxStatements" value="${c3p0.maxStatements}" />
+		<!-- 每隔n秒检查连接池里的空闲连接，单位是秒 -->
+		<property name="idleConnectionTestPeriod" value="${c3p0.idleConnectionTestPeriod}" />
+		<!-- 当连接池里面的连接用完的时候，C3P0一下获取的新的连接数 -->
+		<property name="acquireIncrement" value="${c3p0.acquireIncrement}" />
+		<!-- 每次都验证连接是否可用 -->
+		<property name="testConnectionOnCheckout" value="${c3p0.testConnectionOnCheckout}" />
+	</bean>
+
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="c3p0DataSource" />
+		<!-- @Table 注解方式：使用packagesToScan 属性扫描包路径下的实体获取数据表配置 -->
+		<property name="packagesToScan" value="gjm.house" />
+		<!-- 定义Hibernate的SessionFactory的属性 -->
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+				<!-- 强制Hibernate按照被更新数据的主键，为SQL更新排序。这么做将减少在高并发系统中事务的死锁。 取值 true | false -->
+				<prop key="hibernate.order_updates">${hibernate.order_updates}</prop>
+				<!-- 如果开启, Hibernate将收集有助于性能调节的统计数据.取值true|false -->
+				<prop key="hibernate.generate_statistics">${hibernate.generate_statistics}</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<!--采用@Transactional注解方式使用事务 -->
+	<tx:annotation-driven />
+
+</beans>
+        

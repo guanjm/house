@@ -8,7 +8,7 @@ import net.sf.ehcache.Element;
 
 /**
  * ehcache工具类
- * @author Tim
+ * @author guanjm
  *
  */
 public class EhcacheUtil {

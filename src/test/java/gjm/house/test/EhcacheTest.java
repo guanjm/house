@@ -1,4 +1,4 @@
-package gjm.house.demo;
+package gjm.house.test;
 
 import javax.annotation.Resource;
 

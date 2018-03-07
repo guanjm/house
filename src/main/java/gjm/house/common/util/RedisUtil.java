@@ -1,28 +1,20 @@
 package gjm.house.common.util;
 
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.cglib.proxy.MethodInterceptor;
-import org.springframework.cglib.proxy.MethodProxy;
 import org.springframework.stereotype.Component;
 
-import javassist.bytecode.ByteArray;
-import redis.clients.jedis.BinaryJedis;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
 /**
  * redis工具类
- * @author Tim
+ * @author guanjm
  *
  */
 @Component
@@ -91,7 +83,7 @@ public class RedisUtil {
 			jedis = getJedis();
 			jedis.set(BytesUtil.turnByteArray(key), BytesUtil.turnByteArray(value));
 		} catch (Exception e) {
-			logger.error(" RedisUtil set error:{} key:{} value:{}", e, key, value);
+			logger.error(" RedisUtil set key:{} value:{} error: ", key, value, e);
 		} finally {
 			returnJedis(jedis);
 		}
@@ -111,7 +103,7 @@ public class RedisUtil {
 			jedis.set(byteKey, BytesUtil.turnByteArray(value));
 			jedis.expire(byteKey, expireSeconds);
 		} catch (Exception e) {
-			logger.error(" RedisUtil set error:{} key:{} value:{} expireSeconds:{}", e, key, value, expireSeconds);
+			logger.error(" RedisUtil set key:{} value:{} expireSeconds:{} error: ", key, value, expireSeconds, e);
 		} finally {
 			returnJedis(jedis);
 		}
@@ -130,7 +122,7 @@ public class RedisUtil {
 			jedis = getJedis();
 			result = BytesUtil.turnObject(jedis.get(BytesUtil.turnByteArray(key)), clazz);
 		} catch (Exception e) {
-			logger.error(" RedisUtil get error:{} key:{} clazz:{}", e, key, clazz);
+			logger.error(" RedisUtil get key:{} clazz:{} error: ", key, clazz, e);
 		} finally {
 			returnJedis(jedis);
 		}
@@ -148,7 +140,7 @@ public class RedisUtil {
 			jedis = getJedis();
 			return jedis.del(BytesUtil.turnByteArray(key)) == 1? true : false;
 		} catch (Exception e) {
-			logger.error(" RedisUtil del error:{} key:{}", e, key);
+			logger.error(" RedisUtil del key:{} error: ", key, e);
 		} finally {
 			returnJedis(jedis);
 		}
@@ -166,7 +158,7 @@ public class RedisUtil {
 			jedis = getJedis();
 			return jedis.exists(BytesUtil.turnByteArray(key));
 		} catch (Exception e) {
-			logger.error(" RedisUtil exists error:{} key:{}", e, key);
+			logger.error(" RedisUtil exists key:{} error: ", key, e);
 		} finally {
 			returnJedis(jedis);
 		}
@@ -185,7 +177,7 @@ public class RedisUtil {
 			jedis = getJedis();
 			return jedis.expire(BytesUtil.turnByteArray(key), seconds) == 1? true : false;
 		} catch (Exception e) {
-			logger.error(" RedisUtil expire error:{} key:{} seconds:{}", e, key, seconds);
+			logger.error(" RedisUtil expire key:{} seconds:{} error: ", key, seconds, e);
 		} finally {
 			returnJedis(jedis);
 		}
@@ -203,7 +195,7 @@ public class RedisUtil {
 			jedis = getJedis();
 			return jedis.keys("*" + likeKey + "*");
 		} catch (Exception e) {
-			logger.error(" RedisUtil getLikeKeyList error:{} likeKey:{}", e, likeKey);
+			logger.error(" RedisUtil getLikeKeyList likeKey:{} error: ", likeKey, e);
 		} finally {
 			returnJedis(jedis);
 		}

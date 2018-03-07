@@ -26,6 +26,6 @@
 	<!-- 引入redis缓存 -->
 	<import resource="spring-redis.xml" />
 	<!-- 引入定时任务 -->
-	<!-- <import resource="spring-quartz.xml" /> -->
+	<import resource="spring-quartz.xml" />
 
 </beans>

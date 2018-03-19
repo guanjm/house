@@ -18,6 +18,7 @@
 	<!-- 这两个bean是spring MVC 为 @Controllers 分发请求所必须的。 -->
 	<!-- 启用SpringMVC的注解功能,它会自动注册HandlerMapping、HandlerAdapter、ExceptionResolver的相关实例 -->
 	<mvc:annotation-driven />
+	
 	<!-- 允许访问静态资源，如：html/js/css/pic等 -->
 	<mvc:default-servlet-handler />
 
@@ -49,7 +50,8 @@
 		</property>
 	</bean>
 
-	<!-- 对模型视图添加前后缀 -->
+	<!-- 配置SpringMVC的视图解析器 -->
+    <!-- 其viewClass属性的默认值就是org.springframework.web.servlet.view.JstlView -->
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/views/" />

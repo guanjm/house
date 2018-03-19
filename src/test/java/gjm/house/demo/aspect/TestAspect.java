@@ -50,7 +50,7 @@ public class TestAspect {
 		// 拦截的方法名称。当前正在执行的方法
 		String methodName = pjp.getSignature().getName();
 		// 拦截的方法参数
-		Object[] args = pjp.getArgs();
+		//Object[] args = pjp.getArgs();
         //拦截的放参数类型
         Signature sig = pjp.getSignature();
         MethodSignature msig = null;

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- shiro过滤器工厂 -->
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<!-- Shiro的核心安全接口,这个属性是必须的 -->
+		<property name="securityManager" ref="simlpeSecurityManager" />
+		<!-- 要求登录时的链接,非必须的属性,默认会自动寻找Web工程根目录下的"/login.jsp"页面 -->
+		<property name="loginUrl" value="/account/login/index.do" />
+		<property name="filterChainDefinitions">
+			<value>
+				/account/login/** = anon
+				/** = authc
+			</value>
+		</property>
+		<!-- <property name="filters"></property> -->
+	</bean>
+	
+	<!-- 安全管理器 -->
+	<bean id="simlpeSecurityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="simpleRealm"/>
+        <property name="sessionManager" ref="simpleSessionManager"/>
+        <property name="rememberMeManager" ref="simpleRememberMeManager"/>
+        <property name="cacheManager" ref="simpleShiroCacheManager"/>
+	</bean>
+	
+	<!-- 认证和授权 -->
+	<bean id="simpleRealm" class="gjm.house.common.shiro.simpleFilterFactoryBean.securityManager.Realm" >
+		<property name="userService" ref="userService"/>
+		<property name="roleService" ref="roleService"/>
+		<property name="permissionService" ref="permissionService"/>
+	</bean>
+	
+	<bean id="userService" class="gjm.house.common.account.spring.service.impl.UserServiceImpl"/>
+	<bean id="roleService" class="gjm.house.common.account.spring.service.impl.RoleServiceImpl"/>
+	<bean id="permissionService" class="gjm.house.common.account.spring.service.impl.PermissionServiceImpl"/>
+	
+	<!-- session管理器 -->
+	<bean id="simpleSessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+		<!-- session有效时间（毫秒单位） 15分钟-->
+		<property name="globalSessionTimeout" value="900000"/>
+		<property name="sessionIdCookie" ref="simpleCookieSessionId"/>
+		<property name="sessionDAO" ref="simpleSessionDAO"/>
+	</bean>
+	
+	<!-- cookie模板-记录session -->
+	<bean id="simpleCookieSessionId" class="org.apache.shiro.web.servlet.SimpleCookie">
+		<!-- cookie名称 -->
+		<property name="name" value="simple_shiro_session"/>
+	</bean>
+	
+	<!-- session管理器 -->
+	<bean id="simpleSessionDAO" class="gjm.house.common.shiro.simpleFilterFactoryBean.securityManager.sessionManager.SessionDAO">
+		<property name="sessionIdPrefix" value="simple_shiro_session_id_"/>
+		<property name="redisUtil" ref="redisUtil"/>
+	</bean>
+	
+	<!-- rememberMe管理器 -->
+	<bean id="simpleRememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+		<property name="cipherKey" value="#{T(org.apache.shiro.codec.Base64).decode('aG91c2Vob3VzZWhvdXNlMg==')}"/>
+        <property name="cookie" ref="simpleCookieRememberMe"/>
+	</bean>
+	
+	<!-- cookie模板-记录rememberMe -->
+	<bean id="simpleCookieRememberMe" class="org.apache.shiro.web.servlet.SimpleCookie">
+		<!-- cookie名称 -->
+		<property name="name" value="simple_shiro_rememberMe"/>
+		<!-- cookie有效时间 7天 -->
+		<property name="maxAge" value="604800"/>
+	</bean>
+	
+	<!-- 缓存管理器 -->
+	<bean id="simpleShiroCacheManager" class="gjm.house.common.shiro.simpleFilterFactoryBean.securityManager.SimpleCacheManager">
+		<property name="keyPrefix" value="simple_shiro_cacheManager_"/>
+		<property name="redisUtil" ref="redisUtil"/>
+	</bean>
+	
+	<bean id="redisUtil" class="gjm.house.common.util.RedisUtil"/>
+	
+	<!-- Shiro生命周期处理器-->
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+
+</beans>

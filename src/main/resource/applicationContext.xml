@@ -9,6 +9,8 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<!-- 自动扫描注解 -->
+	<!-- 它背后注册了很多用于解析注解的处理器,其中就包括<context:annotation-config/>配置的注解所使用的处理器 -->
+    <!-- 所以配置了<context:component-scan base-package="">之后,便无需再配置<context:annotation-config> -->
 	<context:component-scan base-package="gjm.house">
 		<!-- 过滤出controller，配置mvc时重复扫描会出现无法加载注解问题 -->
 		<!-- 注解扫描的包 通过exclude-filter 把所有 @Controller注解的表现层控制器组件排除 -->
@@ -25,6 +27,8 @@
 	<import resource="spring-ehcache.xml" />
 	<!-- 引入redis缓存 -->
 	<import resource="spring-redis.xml" />
+	<!-- 引入shiro权限控制 -->
+	<import resource="spring-shiro.xml" />
 	<!-- 引入定时任务 -->
 	<!-- <import resource="spring-quartz.xml" /> -->
 

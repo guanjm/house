@@ -19,7 +19,6 @@ public class Test {
 //		String str = org.apache.shiro.codec.Base64.encodeToString(b);
 //		byte[] decode = org.apache.shiro.codec.Base64.decode("3AvVhmFLUs0KTA3Kprsdag==");
 //		System.out.println(str);
-		
 	}
 	
 }

@@ -1,0 +1,7 @@
+创建类模式（5种）：
+	单例模式（Singleton Pattern）：用于得到内存中的唯一对象。
+	静态工厂模式（Static Factory Pattern）：用于创建复杂对象。	（非GOF23之一）
+	工厂方法模式（Factory Method Pattern）：用于创建复杂对象。
+	抽象工厂模式（Abstract Factory Pattern）：用于创建一组相关或相互依赖的复杂对象。
+	建造者模式（Builder Pattern：用于创建模块化的更加复杂的对象。
+	原型模式（Prototype Pattern）：用于得到一个对象的拷贝。

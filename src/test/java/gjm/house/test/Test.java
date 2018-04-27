@@ -1,14 +1,8 @@
 package gjm.house.test;
 
-import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.crypto.spec.SecretKeySpec;
-
 public class Test {
 	
-	public static void main(String[] args) throws NoSuchAlgorithmException {
+	public static void main(String[] args) {
 		/*KeyGenerator instance = KeyGenerator.getInstance("AES");
 		instance.init(128);
 		SecretKey generateKey = instance.generateKey();
